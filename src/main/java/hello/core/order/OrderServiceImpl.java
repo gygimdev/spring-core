@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository;
@@ -16,10 +17,10 @@ public class OrderServiceImpl implements OrderService{
 
     // 생성자가 1개 있으면 Autowired 를 생략할 수 있다.
     // lombok 이 대신 만들어 주기 때문에 일단 주석처리
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
